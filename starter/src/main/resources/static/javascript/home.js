@@ -1,72 +1,102 @@
-const cookie Arr = document.cookie.split("=")
-const userId = cookie[1];
+const cookieArr = document.cookie.split("=")
+console.log (cookieArr)
+const userId = cookieArr[1];
 
 const submitForm = document.getElementById("note-form")
 const noteContainer = document.getElementById ("note-container")
 
-//why slanted quotes on this next line?
+
 let noteBody = document.getElementById(`noteBody`)
 let updateNoteBtn = document.getElementById('update-note-button')
 
-const headers = {'Content-Type': 'application/json'}
+const headers = {'Content-Type':'application/json'}
 const baseUrl = "http://localhost:8080/api/v1/notes/"
 
-const handleSubmit =async (e) => {
+const handleSubmit =async (e) =>
+    {
     e.preventDefault()
-    let bodyObj = {
-    body:document.getElementById("note-input").value = ''}
+    let bodyObj =
+    {
+    body:document.getElementById("note-input").value = ''
+    }
     await addNote(bodyObj);
-    document.getElementById("note-input").value = ''}
+    document.getElementById("note-input").value = ''
+    }
 
 
-
-async function addNote(obj) {
-    const response = await fetch (`${baseUrl}user/${userId}`, {
+async function addNote(obj)
+    {
+    const response = await fetch (`${baseUrl}user/${userId}`,
+    {
         method:"POST",
         body: JSON.stringify(obj),
-        headers:headers})
+        headers:headers
+    })
         .catch(err =>console.error(err.message))
-    if (response.status == 200) {
-    return getNotes(userId);} }
+    if (response.status == 200)
 
- async function getNotes(userId) {
-    await fetch(`${baseUrl}user/${userId}`,{
+    {
+    return getNotes(userId);
+    } }
+
+ async function getNotes(userId)
+    {
+    await fetch(`${baseUrl}user/${userId}`,
+    {
         method : "GET",
-        headers : headers})
+        headers : headers
+    })
         .then(response => response.json())
         .then(data => createNoteCards(data))
-        .catch(err => console.error(err))}
+        .catch(err => console.error(err))
+    }
 
- async function handleDelete(noteId){
-    await fetch(baseUrl + noteId, {
+ async function handleDelete(noteId)
+    {
+    await fetch(baseUrl + noteId,
+    {
     method: "DELETE",
-    headers: headers})}
+    headers: headers
+    })
+    .catch(err => console.error(err))
+    return getNotes(userId)
+    }
 
-async function getNoteById(noteId){
-    await fetch(baseUrl + noteId) {
+async function getNoteById(noteId)
+    {
+    await fetch(baseUrl + noteId,
+    {
     method: "GET",
-    headers:headers})
+    headers:headers
+    })
     .then(res => res.json())
     .then (data => populateModal(data))
-    .catch(err => console.error.err.message))}
+    .catch(err => console.error.err.message)
+    }
 
-async function handleNoteEdit(noteId){
-    let bodyObj = {
+async function handleNoteEdit(noteId)
+    {
+    let bodyObj =
+    {
     id:noteId,
-    body:noteBody.value}
+    body:noteBody.value
+    }
 
-    await fetch(baseUrl), {
+    await fetch(baseUrl,
+    {
         method: "PUT",
         body: JSON.stringify(bodyObj),
-        headers: headers})
+        headers: headers
+    })
         .catch(err => console.error(err))
-    return getNotes(userId);}
+    return getNotes(userId);
+    }
 
-//what is the deal with line 72
-
-const createNoteCards = (array) => {
+const createNoteCards = (array) =>
+    {
     noteContainer.innerHTML = ''
-    array.forEach(obj => {
+    array.forEach(obj =>
+    {
     let noteCard = document.createElement("div")
     noteCard.classList.add("m-2")
     noteCard.innerHTML = `
@@ -82,16 +112,21 @@ const createNoteCards = (array) => {
                  </div>
             </div>
         </div>
+    `
+    noteContainer.append(noteCard); })
+    }
 
-    noteContainer.append(noteCard); })}
-function handleLogout(){
-    let c = document.cookie.split(;);
-    for (let i in c){
-       document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"}}
+function handleLogout()
+    {
+    let c = document.cookie.split(";");
+    for (let i in c)
+    {
+       document.cookie = /^[^=]+/.exec(c[i])[0]+"=;expires=Thu, 01 Jan 1970 00:00:00 GMT"}
+    }
 
 const populateModal = (obj) =>{
     noteBody.innerText = ''
-    noteBody.innerText = object.body
+    noteBody.innerText = obj.body
     updateNoteBtn.setAttribute('data-note-id', obj.id)}
 
  getNotes(userId);
@@ -100,41 +135,3 @@ const populateModal = (obj) =>{
  updateNoteBtn.addEventListener("click", (e)=>{
     let noteId = e.target.getAttribute('data-note-id')
     handleNoteEdit(noteId);})
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

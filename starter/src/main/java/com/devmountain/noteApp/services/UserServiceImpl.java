@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
         List<String> response = new ArrayList<>();
         User user = new User(userDto);
         userRepository.saveAndFlush(user);
-        response.add("User Added Successfully");
+        response.add("http://localhost:8080/login.html");
         return response;
     }
 ///not sure @override should be on lines 22 and 32
@@ -36,8 +36,7 @@ public class UserServiceImpl implements UserService {
 
         if (userOptional.isPresent()){
             if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())){
-                response.add("User Login Successful");
-                response.add (String.valueOf(userOptional.get().getId()));
+                response.add("http://localhost:8080/home.html");
             } else {
                 response.add ("Username or password incorrect");
             }

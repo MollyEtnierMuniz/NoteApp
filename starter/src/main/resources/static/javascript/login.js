@@ -1,6 +1,6 @@
 let loginForm =document.getElementById('login-form')
 let loginUsername =document.getElementById("login-username")
-let loginPassword =document.getElementbyId("login-username")
+let loginPassword =document.getElementById("login-username")
 
 const headers = {
     'Content-Type' : 'application/json'
@@ -17,7 +17,7 @@ const handleSumbit = async (e) =>{
 
     const response = await fetch (`${baseUrl}/login`, {
     method: "POST",
-    body: JSON.stringify(bodyOjb),
+    body: JSON.stringify(bodyObj),
     headers: headers
     })
         .catch(err =>console.error(err.message))
