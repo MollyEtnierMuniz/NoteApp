@@ -32,6 +32,7 @@ async function addNote(obj)
         body: JSON.stringify(obj),
         headers:headers
     })
+
         .catch(err =>console.error(err.message))
     if (response.status == 200)
 
@@ -59,7 +60,7 @@ async function addNote(obj)
     headers: headers
     })
     .catch(err => console.error(err))
-    return getNotes(userId)
+    return getNotes(userId);
     }
 
 async function getNoteById(noteId)
@@ -71,7 +72,7 @@ async function getNoteById(noteId)
     })
     .then(res => res.json())
     .then (data => populateModal(data))
-    .catch(err => console.error.err.message)
+    .catch(err => console.error(err.message))
     }
 
 async function handleNoteEdit(noteId)

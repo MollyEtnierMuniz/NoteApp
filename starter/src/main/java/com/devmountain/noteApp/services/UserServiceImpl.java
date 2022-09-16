@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
         response.add("http://localhost:8080/login.html");
         return response;
     }
-///not sure @override should be on lines 22 and 32
+
     @Override
     public List<String> userLogin(UserDto userDto) {
         List<String> response = new ArrayList<>();
@@ -37,6 +37,7 @@ public class UserServiceImpl implements UserService {
         if (userOptional.isPresent()){
             if (passwordEncoder.matches(userDto.getPassword(), userOptional.get().getPassword())){
                 response.add("http://localhost:8080/home.html");
+                response.add(String.valueOf(userOptional.get().getId()));
             } else {
                 response.add ("Username or password incorrect");
             }
@@ -45,7 +46,4 @@ public class UserServiceImpl implements UserService {
         }
         return response;
     }
-
-
-
 }
