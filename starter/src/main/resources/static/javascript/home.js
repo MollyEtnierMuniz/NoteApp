@@ -17,7 +17,7 @@ const handleSubmit =async (e) =>
     e.preventDefault()
     let bodyObj =
     {
-    body:document.getElementById("note-input").value = ''
+    body:document.getElementById("note-input").value
     }
     await addNote(bodyObj);
     document.getElementById("note-input").value = ''
